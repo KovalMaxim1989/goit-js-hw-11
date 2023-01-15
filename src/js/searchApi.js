@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
+
 const API_KEY = '32847344-7085d60a6553e128e93a9b9f1';
 const URL = `https://pixabay.com/api/`;
 export const perPage = 30;
@@ -22,12 +23,13 @@ export class ImagesApiService {
       page: this.page,
     };
 
-    try {
+      try {
       const response = await axios.get(URL, {
         params: axiosParams,
       });
-      this.incrementPage();
-      return { hits: response.data.hits, totalHits: response.data.totalHits };
+           
+          this.incrementPage();
+          return { hits: response.data.hits, totalHits: response.data.totalHits };
     } catch (error) {
       console.log('Error', error.message);
       return Notify.failure(`${error.message}`);

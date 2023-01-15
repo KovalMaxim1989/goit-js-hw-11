@@ -6,6 +6,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { createMarkup } from './js/markup';
 import { up } from './js/page-scroll';
+import { spinnerPlay, spinnerStop } from './js/spinner';
 
 refs.searchForm.addEventListener('submit', onSearch);
 refs.btnUp.addEventListener('click', up);
@@ -35,11 +36,16 @@ function onSearch(e) {
 
   if (!imagesServise.query) {
     return notify.showFailureMessage(errorMessage);
-  }
+  };
 
   imagesServise.resetPage();
-  
-  imagesServise.fetchImages().then(handleSearchResult);
+  spinnerPlay();
+  imagesServise.fetchImages()
+    .then(handleSearchResult)
+    .finally(() => {
+          spinnerStop();
+    });;
+    
 }
 
 function handleSearchResult(data) {
@@ -59,7 +65,10 @@ function handleSearchResult(data) {
 }
 
 function onLoadMore() {
-  imagesServise.fetchImages().then(handleLoadMore);
+    spinnerPlay();
+  imagesServise.fetchImages().then(handleLoadMore).finally(() => {
+          spinnerStop();
+        });;
 }
 
 function handleLoadMore(data) {
