@@ -5,29 +5,29 @@ import { refs } from './js/refs';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { createMarkup } from './js/markup';
+import { up } from './js/page-scroll';
 
 refs.searchForm.addEventListener('submit', onSearch);
+refs.btnUp.addEventListener('click', up);
 
-const imagesServise = new ImagesApiService(); // create new copy of the Class search-service
-let gallery = new SimpleLightbox('.gallery a'); // SimpleLightbox initialization
-const notify = new NotifyMessage(); // create new copy of the Class NotifyMessage
+const imagesServise = new ImagesApiService(); 
+let gallery = new SimpleLightbox('.gallery a'); 
+const notify = new NotifyMessage(); 
 
-// option  for IntersectionObserver
 const optionsObserver = {
   root: null,
   rootMargin: '350px',
-  threshold: 0.25,
+  threshold: 1,
 };
 
-const observer = new IntersectionObserver(handleIntersect, optionsObserver); // create observer which is watching to last row
-const observerLastElem = new IntersectionObserver( // create observer which is watching to last elem in last page
+const observer = new IntersectionObserver(handleIntersect, optionsObserver); 
+const observerLastElem = new IntersectionObserver(
   handleIntersectLastElem,
   optionsObserver
 );
 
 observer.observe(refs.loading);
 
-// Set functions
 function onSearch(e) {
   e.preventDefault();
 
@@ -38,7 +38,7 @@ function onSearch(e) {
   }
 
   imagesServise.resetPage();
-  // handle search result
+  
   imagesServise.fetchImages().then(handleSearchResult);
 }
 
@@ -51,11 +51,11 @@ function handleSearchResult(data) {
     return notify.showFailureMessage(errorMessage);
   }
   showImagesList(hits);
-  notify.showSuccessMessage(`Hooray! We found ${totalHits} images.`);
+  notify.showSuccessMessage(`Found ${totalHits} images.`);
 
-  isEndOfPage(totalHits); // check last page and show message
+  isEndOfPage(totalHits); 
 
-  gallery.refresh(); // Destroys and reinitilized the lightbox
+  gallery.refresh(); 
 }
 
 function onLoadMore() {
@@ -67,12 +67,11 @@ function handleLoadMore(data) {
   const { hits, totalHits } = data;
 
   showImagesList(hits);
-  gallery.refresh(); // Destroys and reinitilized the lightbox
+  gallery.refresh(); 
 
-  // check last page and follow for last item when it intersect viewport and show message
   const isLastPage = imagesServise.page - 1 === Math.ceil(totalHits / perPage);
   if (isLastPage) {
-    observerLastElem.observe(refs.galleryContainer.lastElementChild); //observer which is watching to last elem in last page
+    observerLastElem.observe(refs.galleryContainer.lastElementChild); 
   }
 }
 

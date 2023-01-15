@@ -1,6 +1,5 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-// castom options for infoMessage
 const notifyOptions = {
   position: 'center-bottom',
   distance: '50px',

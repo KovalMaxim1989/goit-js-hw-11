@@ -2,5 +2,6 @@
      searchForm: document.querySelector('#search-form'),
      btnSearch: document.querySelector('[type=submit]'),
      galleryContainer: document.querySelector('.gallery'),
-     loading: document.querySelector('#loading')
+     loading: document.querySelector('#loading'),
+     btnUp: document.querySelector('#back-top'),
 }
