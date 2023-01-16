@@ -39,6 +39,7 @@ function onSearch(e) {
   };
 
   imagesServise.resetPage();
+  up();
   spinnerPlay();
   imagesServise.fetchImages()
     .then(handleSearchResult)
