@@ -1,0 +1,39 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  background: linear-gradient(to bottom, #8219f9, #0df9d5b5);
+
+  padding: 15px 0;
+}
+
+.search-form input {
+  padding: 10px;
+  width: 300px;
+  border-radius: 5px;
+  border-color: transparent;
+  outline: none;
+}
+.search-btn {
+  padding: 10px;
+  border-radius: 5px;
+  border-color: transparent;
+  outline: none;
+
+  transform: scale(1);
+
+  transition: transform 250ms ease-in-out;
+}
+.search-btn:hover,
+.search-btn:focus {
+  outline: none;
+
+  transform: scale(1.1);
+}

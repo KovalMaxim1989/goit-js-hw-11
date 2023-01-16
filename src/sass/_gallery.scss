@@ -1,0 +1,86 @@
+.gallery {
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.photo-card {
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: rgba(191, 2, 249, 0.5) 3px 6px 12px -2px,
+    rgba(0, 237, 254, 0.5) 6px 9px 15px -3px;
+  transition: transform 250ms ease-in-out;
+}
+.photo-card img {
+  max-width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+.photo-card:hover {
+  transform: scale(1.03);
+}
+.info {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+
+  background: linear-gradient(to bottom, #8219f9, #0df9d5b5);
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: rgb(0, 0, 0);
+}
+#back-top {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+
+  width: 50px;
+  height: 50px;
+
+  z-index: 9;
+}
+#back-top a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+
+  font-weight: 700;
+
+  background: linear-gradient(to bottom, #8219f9, #0df9d5b5);
+  color: black;
+
+  cursor: pointer;
+
+  transform: scale(1);
+
+  transition: background-color 250ms ease-in-out, transform 250ms ease-in-out;
+}
+#back-top a:hover,
+#back-top a:focus {
+  outline: none;
+  background: linear-gradient(to bottom, #0df9d5b5, #8219f9);
+  color: black;
+
+  transform: scale(1.2);
+}
