@@ -21,9 +21,9 @@ const optionsObserver = {
   threshold: 1,
 };
 
-const observer = new IntersectionObserver(handleIntersect, optionsObserver); 
+const observer = new IntersectionObserver(intersect, optionsObserver); 
 const observerLastElem = new IntersectionObserver(
-  handleIntersectLastElem,
+  intersectLastElem,
   optionsObserver
 );
 
@@ -42,14 +42,14 @@ function onSearch(e) {
   up();
   spinnerPlay();
   imagesServise.fetchImages()
-    .then(handleSearchResult)
+    .then(searchResult)
     .finally(() => {
           spinnerStop();
     });;
     
 }
 
-function handleSearchResult(data) {
+function searchResult(data) {
   if (!data) return;
   const { hits, totalHits } = data;
 
@@ -67,12 +67,12 @@ function handleSearchResult(data) {
 
 function onLoadMore() {
     spinnerPlay();
-  imagesServise.fetchImages().then(handleLoadMore).finally(() => {
+  imagesServise.fetchImages().then(LoadMore).finally(() => {
           spinnerStop();
         });;
 }
 
-function handleLoadMore(data) {
+function LoadMore(data) {
   if (!data) return;
   const { hits, totalHits } = data;
 
@@ -101,14 +101,14 @@ function isEndOfPage(totalHits) {
   }
 }
 
-function handleIntersect(entries, observer) {
+function intersect(entries, observer) {
   entries.forEach(entry => {
     if (entry.isIntersecting && imagesServise.query) {
       onLoadMore();
     }
   });
 }
-function handleIntersectLastElem(entries, observer) {
+function intersectLastElem(entries, observer) {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       notify.showInfoMessage();
