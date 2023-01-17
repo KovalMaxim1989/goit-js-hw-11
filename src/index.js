@@ -22,12 +22,12 @@ const optionsObserver = {
 };
 
 const observer = new IntersectionObserver(intersect, optionsObserver); 
-const observerLastElem = new IntersectionObserver(
-  intersectLastElem,
-  optionsObserver
-);
+// const observerLastElem = new IntersectionObserver(
+//   intersectLastElem,
+//   optionsObserver
+// );
 
-observer.observe(refs.loading);
+
 
 function onSearch(e) {
   e.preventDefault();
@@ -58,6 +58,7 @@ function searchResult(data) {
     return notify.showFailureMessage(errorMessage);
   }
   showImagesList(hits);
+  observer.observe(refs.loading);
   notify.showSuccessMessage(`Found ${totalHits} images.`);
 
   isEndOfPage(totalHits); 
@@ -75,13 +76,14 @@ function onLoadMore() {
 function LoadMore(data) {
   if (!data) return;
   const { hits, totalHits } = data;
-
   showImagesList(hits);
   gallery.refresh(); 
 
   const isLastPage = imagesServise.page - 1 === Math.ceil(totalHits / perPage);
   if (isLastPage) {
-    observerLastElem.observe(refs.galleryContainer.lastElementChild); 
+    // observerLastElem.observe(refs.galleryContainer.lastElementChild); 
+    observer.unobserve(refs.loading);
+    notify.showInfoMessage();
   }
 }
 
@@ -98,6 +100,7 @@ function isEndOfPage(totalHits) {
   const isLastPage = imagesServise.page - 1 === Math.ceil(totalHits / perPage);
   if (isLastPage) {
     notify.showInfoMessage();
+    observer.unobserve(refs.loading);
   }
 }
 
@@ -108,11 +111,11 @@ function intersect(entries, observer) {
     }
   });
 }
-function intersectLastElem(entries, observer) {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      notify.showInfoMessage();
-      observer.unobserve(refs.loader);
-    }
-  });
-}
+// function intersectLastElem(entries, observer) {
+//   entries.forEach(entry => {
+//     if (entry.isIntersecting) {
+//       notify.showInfoMessage();
+//       observer.unobserve(refs.loader);
+//     }
+//   });
+// }
